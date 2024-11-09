@@ -112,7 +112,6 @@ jupyter>=1.0.0
 
 ```
 Feature_Engineering/
-├── notebooks/
 │   ├── Handling_Imbalanced_dataset.ipynb
 │   ├── Label_Encoding.ipynb
 │   ├── OHE_Encoding.ipynb
@@ -120,9 +119,9 @@ Feature_Engineering/
 │   ├── SMOTE.ipynb
 │   ├── Handle_missing_values.ipynb
 │   └── Handling_and_Outliers.ipynb
+│   └── README.md
 ├── requirements.txt
-├── .gitignore
-└── README.md
+└── .gitignore
 ```
 
 ## Usage Examples
