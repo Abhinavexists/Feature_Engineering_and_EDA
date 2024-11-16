@@ -1,6 +1,6 @@
-# Feature Engineering Techniques
+# Feature Engineering Project
 
-This repository contains Jupyter notebooks demonstrating various feature engineering techniques commonly used in machine learning projects.
+This repository contains Jupyter notebooks demonstrating various feature engineering and exploratory data analysis (EDA) techniques commonly used in machine learning projects.
 
 ## Overview
 
@@ -42,172 +42,129 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Running the Notebooks
+## Project Structure
 
-1. Start Jupyter Notebook
-```bash
-jupyter notebook
 ```
-
-2. Navigate to the desired notebook in your browser
-3. Click on the notebook to open it
-4. Run the cells using Shift + Enter or the Run button
-
-### Dependencies
-
-Create a `requirements.txt` file in your repository with the following contents:
-```
-pandas>=1.3.0
-numpy>=1.21.0
-scikit-learn>=0.24.2
-imbalanced-learn>=0.8.0
-seaborn>=0.11.2
-matplotlib>=3.4.3
-jupyter>=1.0.0
+Feature_Engineering/
+├── Exploratory_data_analysis/
+│   ├── Data_Cleaning.ipynb
+│   ├── Flight_price.ipynb
+│   ├── flight_price.xlsx
+│   ├── googleplaystore.csv
+│   ├── googleplaystorecleaned.csv
+│   ├── Red_Wine.ipynb
+│   └── winequality-red.csv
+├── Handle_missing_values.ipynb
+├── Handling_and_Outliers.ipynb
+├── Handling_Imbalanced.ipynb
+├── Label_Encoding.ipynb
+├── LICENSE
+├── OHE_Encoding.ipynb
+├── Ordinal_Encoding.ipynb
+├── README.md
+├── SMOTE.ipynb
+└── Target_guided_Ordinal.ipynb
 ```
 
 ## Techniques Covered
 
-### 1. Handling Imbalanced Datasets
-- Implementation of different techniques to handle imbalanced datasets:
-  - Upsampling (Random Over Sampling)
-  - Downsampling (Random Under Sampling)
+### 1. Data Cleaning and EDA
+- Data cleaning and preprocessing techniques
+- Exploratory data analysis on various datasets:
+  - Flight price prediction
+  - Google Play Store apps
+  - Red wine quality analysis
+
+### 2. Feature Engineering Techniques
+- Handling Missing Values
+  - Various imputation methods
+  - Deletion strategies
+- Handling Outliers
+  - Detection and treatment methods
+  - IQR method implementation
+- Handling Imbalanced Datasets
   - SMOTE (Synthetic Minority Over-sampling Technique)
+  - Upsampling and downsampling methods
 
-### 2. Data Encoding Techniques
-- Various methods to convert categorical variables into numerical format:
-  - Label Encoding
-    - Simple numerical encoding for categorical variables
-    - Suitable for ordinal data
-  - Ordinal Encoding
-    - Numerical encoding preserving the order of categories
-    - Ideal for ordered categorical data (e.g., education levels)
-  - One-Hot Encoding (OHE)
-    - Binary encoding for nominal categorical variables
-    - Creates dummy variables for each category
+### 3. Encoding Techniques
+- Label Encoding
+- One-Hot Encoding (OHE)
+- Ordinal Encoding
+- Target-guided Ordinal Encoding
 
-### 3. Handling Missing Values
-- Understanding different types of missing data:
-  - MCAR (Missing Completely at Random)
-  - MAR (Missing at Random)
-  - MNAR (Missing Not at Random)
-- Techniques for handling missing values:
-  - Deletion Methods
-    - Row-wise deletion
-    - Column-wise deletion
-  - Imputation Methods
-    - Mean imputation (for normally distributed data)
-    - Median imputation (for data with outliers)
-    - Mode imputation (for categorical variables)
+## Example Use Cases
 
-### 4. Handling Outliers
-- Five-number summary analysis
-- Box plot visualization
-- IQR (Interquartile Range) method
-- Outlier detection using:
-  - Lower fence (Q1 - 1.5 * IQR)
-  - Upper fence (Q3 + 1.5 * IQR)
+### 1. Flight Price Prediction
+The repository includes a comprehensive example of feature engineering for flight price prediction, including:
+- Date and time feature extraction
+- Duration calculation
+- Handling categorical variables
+- Route analysis
+- Stop information processing
 
-## Repository Structure
+Features processed include:
+- Airline
+- Source/Destination cities
+- Departure/Arrival times
+- Flight duration
+- Number of stops
+- Additional flight information
 
-```
-Feature_Engineering/
-│   ├── Handling_Imbalanced_dataset.ipynb
-│   ├── Label_Encoding.ipynb
-│   ├── OHE_Encoding.ipynb
-│   ├── Ordinal_Encoding.ipynb
-│   ├── SMOTE.ipynb
-│   ├── Handle_missing_values.ipynb
-│   └── Handling_and_Outliers.ipynb
-│   └── README.md
-├── requirements.txt
-└── .gitignore
-```
+### 2. Red Wine Quality Analysis
+This dataset focuses on Portuguese "Vinho Verde" red wine variants, analyzing physicochemical properties to predict wine quality. The analysis includes:
 
-## Usage Examples
+#### Dataset Features:
+- Fixed acidity
+- Volatile acidity
+- Citric acid
+- Residual sugar
+- Chlorides
+- Free sulfur dioxide
+- Total sulfur dioxide
+- Density
+- pH
+- Sulphates
+- Alcohol
+- Quality (score between 0 and 10)
 
-### Handling Imbalanced Dataset
+#### Analysis Techniques:
+- Correlation analysis between wine properties
+- Distribution analysis of wine qualities
+- Feature relationships visualization
+- Outlier detection
+- Quality prediction modeling
+
+### Code Examples
+
+#### Feature Extraction from Datetime
 ```python
-from sklearn.utils import resample
-
-# Upsampling example
-df_minority_upsampled = resample(df_minority,
-                                replace=True,
-                                n_samples=len(df_majority),
-                                random_state=42)
+# Split date into components
+df[['Date','Month','Year']] = df['Date_of_Journey'].str.split('/',expand=True)
+df[['Date', 'Month', 'Year']] = df[['Date', 'Month', 'Year']].astype(int)
 ```
 
-### Handling Missing Values
+#### Duration Processing
 ```python
-# Mean imputation
-df['Age_mean'] = df['age'].fillna(df['age'].mean())
-
-# Median imputation
-df['Age_median'] = df['age'].fillna(df['age'].median())
-
-# Mode imputation for categorical variables
-mode_value = df['category'].mode()[0]
-df['category_filled'] = df['category'].fillna(mode_value)
+# Convert duration to minutes
+df['Duration_Time'] = (df['Duration'].str.extract('(?:(\d+)h)?\s*(?:(\d+)m)?')
+                      .fillna(0)
+                      .astype(int)
+                      .apply(lambda x:x[0]*60 + x[1], axis=1))
 ```
 
-### Detecting Outliers
+#### Categorical Encoding
 ```python
-import numpy as np
-
-# Calculate quartiles and IQR
-Q1 = np.percentile(data, 25)
-Q3 = np.percentile(data, 75)
-IQR = Q3 - Q1
-
-# Define outlier boundaries
-lower_fence = Q1 - 1.5 * IQR
-upper_fence = Q3 + 1.5 * IQR
+from sklearn.preprocessing import OneHotEncoder
+encoder = OneHotEncoder()
+transformed = encoder.fit_transform(df[['Airline','Source','Destination']]).toarray()
 ```
-
-## Troubleshooting
-
-Common issues and solutions:
-
-1. Package installation errors:
-```bash
-# If you encounter SSL errors
-pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
-
-# If you need to upgrade pip
-python -m pip install --upgrade pip
-```
-
-2. Jupyter Notebook not starting:
-```bash
-# Make sure jupyter is installed
-pip install jupyter
-
-# Try running with specific port
-jupyter notebook --port=8889
-```
-
-3. Import errors:
-- Make sure all requirements are installed
-- Check if virtual environment is activated
-- Restart the kernel in Jupyter Notebook
 
 ## Contributing
 
 Feel free to contribute to this repository by:
 1. Forking the repository
 2. Creating a new branch for your feature
-```bash
-git checkout -b feature/NewFeature
-```
-3. Committing your changes
-```bash
-git commit -m "Add new feature"
-```
-4. Pushing to your branch
-```bash
-git push origin feature/NewFeature
-```
-5. Creating a Pull Request
+3. Submitting a pull request
 
 ## License
 
@@ -216,7 +173,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Author
 
 Abhinav Kumar Singh
-
-## Connect with Me
-
-- GitHub: [@Abhinavks1405](https://github.com/Abhinavks1405)
+- GitHub: [@Abhinavexists](https://github.com/Abhinavexists)
