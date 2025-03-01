@@ -1,4 +1,4 @@
-# Feature Engineering Project
+# Feature Engineering and EDA
 
 This repository contains Jupyter notebooks demonstrating various feature engineering and exploratory data analysis (EDA) techniques commonly used in machine learning projects.
 
@@ -46,24 +46,24 @@ pip install -r requirements.txt
 
 ```
 Feature_Engineering/
-├── Exploratory_data_analysis/
+├── Exploratory_Data_Analysis/
+│   ├── Dataset/
 │   ├── Data_Cleaning.ipynb
 │   ├── Flight_price.ipynb
-│   ├── flight_price.xlsx
-│   ├── googleplaystore.csv
-│   ├── googleplaystorecleaned.csv
-│   ├── Red_Wine.ipynb
-│   └── winequality-red.csv
-├── Handle_missing_values.ipynb
-├── Handling_and_Outliers.ipynb
-├── Handling_Imbalanced.ipynb
-├── Label_Encoding.ipynb
+│   └── Red_Wine.ipynb
+├── Feature_Engineering/
+│   ├── Encoding/
+│   │   ├── Label_Encoding.ipynb
+│   │   ├── OHE_Encoding.ipynb
+│   │   ├── Ordinal_Encoding.ipynb
+│   │   └── Target_guided_Ordinal_Encoding.ipynb
+│   ├── Handle_missing_values.ipynb
+│   ├── Handling_and_Outliers.ipynb
+│   ├── Handling_Imbalanced_dataset.ipynb
+│   └── SMOTE.ipynb
 ├── LICENSE
-├── OHE_Encoding.ipynb
-├── Ordinal_Encoding.ipynb
-├── README.md
-├── SMOTE.ipynb
-└── Target_guided_Ordinal.ipynb
+├── readme.md
+└── requirements.txt
 ```
 
 ## Techniques Covered
@@ -158,6 +158,20 @@ from sklearn.preprocessing import OneHotEncoder
 encoder = OneHotEncoder()
 transformed = encoder.fit_transform(df[['Airline','Source','Destination']]).toarray()
 ```
+## Learning Path
+
+For those new to feature engineering, follow this sequence:
+1. Data_Cleaning.ipynb → Handle_missing_values.ipynb
+2. Handling_and_Outliers.ipynb → Label_Encoding.ipynb
+3. Handling_Imbalanced_dataset.ipynb → SMOTE.ipynb
+4. Apply techniques in case studies: Flight_price.ipynb and Red_Wine.ipynb
+
+## Troubleshooting
+
+- **Missing Dependencies**: Run `pip install imbalanced-learn` if SMOTE is missing
+- **Memory Errors with OHE**: Use `pd.get_dummies(sparse=True)` for high-cardinality columns
+- **Jupyter Not Showing Plots**: Add `%matplotlib inline` at notebook top
+
 
 ## Contributing
 
