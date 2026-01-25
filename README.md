@@ -144,12 +144,12 @@ For those new to feature engineering and EDA, follow this recommended sequence:
 
 1. **Data_Cleaning.ipynb** - Learn basic data cleaning
 2. **Handle_missing_values.ipynb** - Master missing data strategies
-3. **Handling_and_Outliers.ipynb** - Detect and treat outliers
+3. **Handling_Outliers.ipynb** - Detect and treat outliers
 4. **Label_Encoding.ipynb** - Simple categorical encoding
 
 ### **Intermediate Path** (Build on fundamentals)
 
-1. **OHE_Encoding.ipynb** - One-Hot Encoding techniques
+1. **One_Hot_Encoding.ipynb** - One-Hot Encoding techniques
 2. **Ordinal_Encoding.ipynb** - Custom category ordering
 3. **Handling_Imbalanced_dataset.ipynb** - Class imbalance strategies
 4. **SMOTE.ipynb** - Synthetic oversampling
